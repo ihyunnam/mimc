@@ -115,7 +115,7 @@ global MIMC_BN254_CONSTANTS: [Field; MIMC_BN254_ROUNDS] = [
     ];
 
 // mimc implementation with hardcoded parameters for BN254 curve.
-// #[field(bn254)]
+#[field(bn254)]
 pub fn mimc_bn254<let N: u32>(array: [Field; N], mut r: Field) -> Field {
     let exponent = 7;       // TODO: secure enough?
     // let mut r = 0;
