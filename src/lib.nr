@@ -114,17 +114,17 @@ global MIMC_BN254_CONSTANTS: [Field; MIMC_BN254_ROUNDS] = [
         13602139229813231349386885113156901793661719180900395818909719758150455500533
     ];
 
-//mimc implementation with hardcoded parameters for BN254 curve.
-// #[field(bn254)]
-// pub fn mimc_bn254<let N: u32>(array: [Field; N], mut r: Field) -> Field {
-//     let exponent = 7;       // TODO: secure enough?
-//     // let mut r = 0;
-//     for elem in array {
-//         let h = mimc(elem, r, MIMC_BN254_CONSTANTS, exponent);
-//         r = r + elem + h;
-//     }
-//     r
-// }
+// mimc implementation with hardcoded parameters for BN254 curve.
+#[field(bn254)]
+pub fn mimc_bn254<let N: u32>(array: [Field; N], mut r: Field) -> Field {
+    let exponent = 7;       // TODO: secure enough?
+    // let mut r = 0;
+    for elem in array {
+        let h = mimc(elem, r, MIMC_BN254_CONSTANTS, exponent);
+        r = r + elem + h;
+    }
+    r
+}
 
 // pub struct MimcHasher {
 //     _state: [Field],
