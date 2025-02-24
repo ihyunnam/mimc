@@ -115,43 +115,43 @@ global MIMC_BN254_CONSTANTS: [Field; MIMC_BN254_ROUNDS] = [
     ];
 
 //mimc implementation with hardcoded parameters for BN254 curve.
-#[field(bn254)]
-pub fn mimc_bn254<let N: u32>(array: [Field; N], mut r: Field) -> Field {
-    let exponent = 7;       // TODO: secure enough?
-    // let mut r = 0;
-    for elem in array {
-        let h = mimc(elem, r, MIMC_BN254_CONSTANTS, exponent);
-        r = r + elem + h;
-    }
-    r
-}
+// #[field(bn254)]
+// pub fn mimc_bn254<let N: u32>(array: [Field; N], mut r: Field) -> Field {
+//     let exponent = 7;       // TODO: secure enough?
+//     // let mut r = 0;
+//     for elem in array {
+//         let h = mimc(elem, r, MIMC_BN254_CONSTANTS, exponent);
+//         r = r + elem + h;
+//     }
+//     r
+// }
 
-pub struct MimcHasher {
-    _state: [Field],
-}
+// pub struct MimcHasher {
+//     _state: [Field],
+// }
 
-impl Hasher for MimcHasher {
-    #[field(bn254)]
-    fn finish(self) -> Field {
-        let exponent = 7;
-        let mut r = 0;
-        for i in 0..self._state.len() {
-            let h = mimc(self._state[i], r, MIMC_BN254_CONSTANTS, exponent);
-            r = r + self._state[i] + h;
-        }
-        r
-    }
+// impl Hasher for MimcHasher {
+//     #[field(bn254)]
+//     fn finish(self) -> Field {
+//         let exponent = 7;
+//         let mut r = 0;
+//         for i in 0..self._state.len() {
+//             let h = mimc(self._state[i], r, MIMC_BN254_CONSTANTS, exponent);
+//             r = r + self._state[i] + h;
+//         }
+//         r
+//     }
 
-    fn write(&mut self, input: Field) {
-        self._state = self._state.push_back(input);
-    }
-}
+//     fn write(&mut self, input: Field) {
+//         self._state = self._state.push_back(input);
+//     }
+// }
 
-impl Default for MimcHasher {
-    fn default() -> Self {
-        MimcHasher { _state: &[] }
-    }
-}
+// impl Default for MimcHasher {
+//     fn default() -> Self {
+//         MimcHasher { _state: &[] }
+//     }
+// }
 
 // mod tests {
 //     use super::mimc_bn254;
